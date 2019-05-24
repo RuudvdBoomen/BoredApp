@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 class ActivityItem extends StatelessWidget {
   Activity activity;
-
   ActivityItem(this.activity);
 
   @override

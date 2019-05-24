@@ -37,8 +37,7 @@ class HomePageState extends State<HomePage> {
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
-                    // By default, show a loading spinner
-                    return CircularProgressIndicator();
+                    return new Text("No activity retreived yet!");
                   },
                 ),
                 new Row(
@@ -57,7 +56,7 @@ class HomePageState extends State<HomePage> {
                             borderRadius: new BorderRadius.circular(30.0)),
                         child: new Text("Search activity",
                             style: new TextStyle(color: Colors.white)),
-                        onPressed: () => {}),
+                        onPressed: () => Navigator.pushNamed(context, '/survey')),
                   ],
                 )
               ],

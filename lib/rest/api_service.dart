@@ -8,11 +8,21 @@ class ApiService {
     final response = await get('http://www.boredapi.com/api/activity/');
 
     if (response.statusCode == 200) {
-      // If server returns an OK response, parse the JSON
       return Activity.fromJson(json.decode(response.body));
     } else {
-      // If that response was not OK, throw an error.
       throw Exception('Failed to load post');
+    }
+  }
+
+  Future<Activity> getPersonalActivity(
+      double accessibility, String type, int participants, double price) async {
+    String request = 'http://www.boredapi.com/api/activity' +
+        '?accessibility=$accessibility&type=$type&participants=$participants&price=$price';
+    final response = await get(request);
+    if (response.statusCode == 200 && !response.body.contains('error')) {
+      return Activity.fromJson(json.decode(response.body));
+    } else {
+      return Activity.withError('No such activity');
     }
   }
 }

@@ -1,11 +1,12 @@
 class Activity {
-  final String activity;
-  final double accessibility;
-  final String type;
-  final int participants;
-  final double price;
-  final String link;
-  final String key;
+  String activity;
+  double accessibility;
+  String type;
+  int participants;
+  double price;
+  String link;
+  String key;
+  String error;
 
   Activity(
       {this.activity,
@@ -15,6 +16,12 @@ class Activity {
       this.price,
       this.link,
       this.key});
+
+  Activity.withError(this.error);
+
+  factory Activity.fromError(error) {
+    return Activity.withError(error);
+  }
 
   factory Activity.fromJson(Map<String, dynamic> json) {
     return Activity(
