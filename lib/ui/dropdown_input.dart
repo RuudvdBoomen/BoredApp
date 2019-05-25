@@ -9,14 +9,13 @@ class DropdownInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Column(
+    return Column(
       children: <Widget>[
-        new Text(this._label,
-            style: new TextStyle(
-              color: Colors.black,
+        Text(this._label,
+            style: TextStyle(
               fontSize: 20.0,
             )),
-        new DropdownButton<String>(
+        DropdownButton<String>(
           value: this._selectedValue,
           onChanged: (String newValue) {
             this._updateValue(newValue);

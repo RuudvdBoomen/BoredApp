@@ -16,7 +16,7 @@ class SurveyPageState extends State<SurveyPage> {
   double price = 0;
   double participants = 0;
   Future<Activity> activity;
-  ApiService apiService = new ApiService();
+  ApiService apiService = ApiService();
 
   getPersonalActivity() {
     this.activity = apiService.getPersonalActivity(
@@ -47,51 +47,64 @@ class SurveyPageState extends State<SurveyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: new AppBar(
-          title: const Text('Survey', textAlign: TextAlign.right),
-          backgroundColor: Colors.blue,
+        appBar: AppBar(
+          title: const Text('Survey'),
+          backgroundColor: Color(0xFF486AF8),
         ),
-        body: Align(
-            alignment: Alignment.center,
-            child: new Container(
-                width: 0.8 * MediaQuery.of(context).size.width,
-                child: new Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      new CustomSlider("Accessibility", accessibility, 0.0, 1.0,
-                          updateAccessibility, 0.05),
-                      new DropdownInput("Type", type, updateType),
-                      new CustomSlider("Participants", participants.toDouble(),
-                          0.0, 5.0, updateParticipants, 1),
-                      new CustomSlider(
-                          "Price", price, 0.0, 1.0, updatePrice, 0.05),
-                      new RaisedButton(
-                          color: Colors.blue,
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0)),
-                          child: new Text("Get personal activity",
-                              style: new TextStyle(color: Colors.white)),
-                          onPressed: () => getPersonalActivity()),
-                      FutureBuilder<Activity>(
-                        future: this.activity,
-                        builder: (context, snapshot) {
-                          print(snapshot);
-                          if (snapshot.hasData) {
-                            if (snapshot.data.error != null) {
-                              return Text(
-                                  "No activity found with the given parameters! :(");
-                            }
-                            return new Column(children: <Widget>[
-                              Text("Activity found:"),
-                              ActivityItem(snapshot.data)
-                            ]);
-                          } else if (snapshot.hasError) {
-                            return Text(snapshot.error);
-                          }
-                          return new Container();
-                        },
-                      ),
-                    ]))));
+        body: SingleChildScrollView(
+            child: Align(
+                alignment: Alignment.center,
+                child: Container(
+                    padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                    width: 0.8 * MediaQuery.of(context).size.width,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          CustomSlider("Accessibility", accessibility, 0.0, 1.0,
+                              updateAccessibility, 0.05),
+                          DropdownInput("Type", type, updateType),
+                          CustomSlider("Participants", participants.toDouble(),
+                              0.0, 5.0, updateParticipants, 1),
+                          CustomSlider(
+                              "Price", price, 0.0, 1.0, updatePrice, 0.05),
+                          RaisedButton(
+                              padding: EdgeInsets.all(14),
+                              color: Color(0xFF486AF8),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0)),
+                              child: Text("Get personal activity",
+                                  style: TextStyle(color: Colors.white)),
+                              onPressed: () => getPersonalActivity()),
+                          FutureBuilder<Activity>(
+                            future: this.activity,
+                            builder: (context, snapshot) {
+                              print(snapshot);
+                              if (snapshot.hasData) {
+                                if (snapshot.data.error != null) {
+                                  return Container(
+                                      padding: EdgeInsets.all(20),
+                                      child: Text(
+                                          "No activity found with the given parameters! :(",
+                                          style: TextStyle(
+                                            fontSize: 20.0,
+                                          ),
+                                          textAlign: TextAlign.center));
+                                }
+                                return Column(children: <Widget>[
+                                  Container(
+                                      padding: EdgeInsets.all(20),
+                                      child: Text("Found activity:",
+                                          style: TextStyle(
+                                            fontSize: 20.0,
+                                          ))),
+                                  ActivityItem(snapshot.data)
+                                ]);
+                              } else if (snapshot.hasError) {
+                                return Text(snapshot.error);
+                              }
+                              return Container();
+                            },
+                          ),
+                        ])))));
   }
 }

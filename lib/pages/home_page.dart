@@ -1,6 +1,8 @@
 import 'package:boring_app/objects/activity.dart';
+import 'package:boring_app/pages/survey_page.dart';
 import 'package:boring_app/rest/api_service.dart';
 import 'package:boring_app/ui/activity_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  ApiService apiService = new ApiService();
+  ApiService apiService = ApiService();
   Future<Activity> activity;
 
   getActivity() {
@@ -20,46 +22,65 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: new AppBar(
-          title: const Text('Menu', textAlign: TextAlign.right),
-          backgroundColor: Colors.blue,
+        appBar: AppBar(
+          title: const Text('Menu'),
+          backgroundColor: Color(0xFF486AF8),
         ),
-        body: Align(
-            alignment: Alignment.center,
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+        body: SingleChildScrollView(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            FutureBuilder<Activity>(
+              future: this.activity,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Container(
+                      padding: EdgeInsets.symmetric(vertical: 80),
+                      child: ActivityItem(snapshot.data));
+                } else if (snapshot.hasError) {
+                  return Container(
+                      padding: EdgeInsets.symmetric(vertical: 80),
+                      child: Text("${snapshot.error}"));
+                }
+                return Container(
+                    padding: EdgeInsets.symmetric(vertical: 80),
+                    child: Text("Use the buttons below to get an activity!",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20.0,
+                        )));
+              },
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                FutureBuilder<Activity>(
-                  future: this.activity,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return ActivityItem(snapshot.data);
-                    } else if (snapshot.hasError) {
-                      return Text("${snapshot.error}");
-                    }
-                    return new Text("No activity retreived yet!");
-                  },
-                ),
-                new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    new RaisedButton(
-                        color: Colors.blue,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)),
-                        child: new Text("Get new activity",
-                            style: new TextStyle(color: Colors.white)),
-                        onPressed: () => getActivity()),
-                    new RaisedButton(
-                        color: Colors.blue,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)),
-                        child: new Text("Search activity",
-                            style: new TextStyle(color: Colors.white)),
-                        onPressed: () => Navigator.pushNamed(context, '/survey')),
-                  ],
-                )
+                SizedBox(
+                    width: 140,
+                    child: RaisedButton(
+                        padding: EdgeInsets.all(14),
+                        color: Color(0xFF486AF8),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)),
+                        child: Text("Get activity",
+                            style: TextStyle(color: Colors.white)),
+                        onPressed: () => getActivity())),
+                SizedBox(
+                    width: 140,
+                    child: RaisedButton(
+                        padding: EdgeInsets.all(14),
+                        color: Color(0xFF486AF8),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)),
+                        child: Text("Search activity",
+                            style: TextStyle(color: Colors.white)),
+                        onPressed: () => Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => SurveyPage())))),
               ],
-            )));
+            )
+          ],
+        )));
   }
 }

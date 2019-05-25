@@ -13,10 +13,9 @@ class CustomSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Column(children: <Widget>[
-      new Text(_label,
-          style: new TextStyle(
-            color: Colors.black,
+    return Column(children: <Widget>[
+      Text(_label,
+          style: TextStyle(
             fontSize: 20.0,
           )),
       Slider(
@@ -24,7 +23,7 @@ class CustomSlider extends StatelessWidget {
         min: _min,
         max: _max,
         divisions: _max ~/ _step,
-        activeColor: Colors.blue,
+        activeColor: Color(0xFFAB62E9),
         inactiveColor: Colors.black,
         onChanged: (double newValue) {
           _updateVariable(num.parse(newValue.toStringAsFixed(2)));
