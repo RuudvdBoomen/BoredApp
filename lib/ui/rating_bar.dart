@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 
 class RatingBar extends StatelessWidget {
-  String label;
-  double rating;
-  double totalWidth = 200.0;
-  Color positiveColor = Color(0xFFAB62E9);
-  Color negetiveColor = Colors.white;
+  final String _label;
+  final double _rating;
+  final double _totalWidth = 200.0;
+  final Color _positiveColor = Color(0xFFAB62E9);
+  final Color _negetiveColor = Colors.white;
 
-  RatingBar(this.label, this.rating);
+  RatingBar(this._label, this._rating);
 
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      Text(this.label,
+      Text(this._label,
           style: TextStyle(
             color: Colors.black,
             fontSize: 20.0,
           )),
       Container(
-        width: totalWidth + 4.0,
+        width: _totalWidth + 4.0,
         height: 30.0,
         decoration: BoxDecoration(
-            color: negetiveColor,
+            color: _negetiveColor,
             border: Border.all(color: Colors.black, width: 2.0)),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Container(
-              color: positiveColor,
-              width: (rating) * totalWidth,
+              color: _positiveColor,
+              width: (_rating) * _totalWidth,
             ),
           ],
         ),

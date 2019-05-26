@@ -10,7 +10,7 @@ class ApiService {
     if (response.statusCode == 200) {
       return Activity.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load post');
+      return Activity.withError('No activity found');
     }
   }
 
@@ -22,7 +22,7 @@ class ApiService {
     if (response.statusCode == 200 && !response.body.contains('error')) {
       return Activity.fromJson(json.decode(response.body));
     } else {
-      return Activity.withError('No such activity');
+      return Activity.withError('No activity found');
     }
   }
 }

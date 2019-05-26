@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DropdownInput extends StatelessWidget {
-  String _label;
-  String _selectedValue;
-  Function(String) _updateValue;
+  final String _label;
+  final String _selectedValue;
+  final Function(String) _updateValue;
 
   DropdownInput(this._label, this._selectedValue, this._updateValue);
 

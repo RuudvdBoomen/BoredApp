@@ -11,11 +11,11 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  ApiService apiService = ApiService();
-  Future<Activity> activity;
+  ApiService _apiService = ApiService();
+  Future<Activity> _activity;
 
   getActivity() {
-    this.activity = apiService.getActivity();
+    this._activity = _apiService.getActivity();
     setState(() {});
   }
 
@@ -23,7 +23,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Menu'),
+          title: const Text('Activity finder'),
           backgroundColor: Color(0xFF486AF8),
         ),
         body: SingleChildScrollView(
@@ -32,7 +32,7 @@ class HomePageState extends State<HomePage> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             FutureBuilder<Activity>(
-              future: this.activity,
+              future: this._activity,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Container(

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CustomSlider extends StatelessWidget {
-  String _label;
-  double _value;
-  double _min;
-  double _max;
-  double _step;
-  void Function(double) _updateVariable;
+  final String _label;
+  final double _value;
+  final double _min;
+  final double _max;
+  final double _step;
+  final void Function(double) _updateVariable;
 
   CustomSlider(this._label, this._value, this._min, this._max,
       this._updateVariable, this._step);

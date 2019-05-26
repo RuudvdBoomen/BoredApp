@@ -3,8 +3,8 @@ import 'package:boring_app/ui/rating_bar.dart';
 import 'package:flutter/material.dart';
 
 class ActivityItem extends StatelessWidget {
-  Activity activity;
-  ActivityItem(this.activity);
+  final Activity _activity;
+  ActivityItem(this._activity);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class ActivityItem extends StatelessWidget {
             height: 320,
             child: Stack(children: <Widget>[
               Text(
-                  '${activity.type[0].toUpperCase()}${activity.type.substring(1)} activity!',
+                  '${_activity.type[0].toUpperCase()}${_activity.type.substring(1)} activity!',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
@@ -33,7 +33,7 @@ class ActivityItem extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text(activity.activity,
+                          Text(_activity.activity,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20.0,
@@ -41,7 +41,7 @@ class ActivityItem extends StatelessWidget {
                           Container(
                               padding: EdgeInsets.all(10),
                               child: RatingBar(
-                                  "Accessibility:", activity.accessibility)),
+                                  "Accessibility:", _activity.accessibility)),
                           Text("Participants:",
                               style: TextStyle(fontSize: 20.0)),
                           SizedBox(
@@ -50,13 +50,13 @@ class ActivityItem extends StatelessWidget {
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   shrinkWrap: true,
-                                  itemCount: activity.participants,
+                                  itemCount: _activity.participants,
                                   itemBuilder: (context, index) {
                                     return Icon(Icons.person, size: 50);
                                   })),
                           Container(
                               padding: EdgeInsets.all(10),
-                              child: RatingBar("Price:", activity.price))
+                              child: RatingBar("Price:", _activity.price))
                         ],
                       )))
             ])));
